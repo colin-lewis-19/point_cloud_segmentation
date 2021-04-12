@@ -27,6 +27,7 @@ import numpy as np
 from pcs_detection.preprocess import preprocessing
 
 import tensorflow as tf
+tf.compat.v1.disable_eager_execution()
 
 #from keras import backend as K
 from tensorflow.keras import backend as K
@@ -81,7 +82,7 @@ class Inference():
         self.model = maskDetector.model
 
         #self.model._make_predict_function()
-        self.graph.finalize()
+        #self.graph.finalize()
 
         print("Model loaded and ready")
 

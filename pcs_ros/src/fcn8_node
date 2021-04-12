@@ -83,13 +83,14 @@ class InferenceServer(object):
 
         # Convert sensor_msgs/Image to cv2 Mat
         cv_image = self.bridge.imgmsg_to_cv2(req.input_image, "8UC3")
+
         cv_image = np.asarray(cv_image[:,:,:])
 
         # Convert to numpy array and send to annotator
         input_image = np.asarray(cv_image)
 
         # Generate the annotation and convert to 3 channel image
-        res = self.annotator.make_prediction(input_image[:,:,0])
+        res = self.annotator.make_prediction(input_image[:,:,:])
 
         results_image = cv.merge((res, res, res)) * 255
 

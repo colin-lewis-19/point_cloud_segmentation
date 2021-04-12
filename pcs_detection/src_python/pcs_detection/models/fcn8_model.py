@@ -27,6 +27,7 @@
 import os, sys
 import numpy as np
 import tensorflow as tf
+tf.compat.v1.disable_eager_execution()
 import keras.backend as K
 from keras.models import Model
 from keras.layers import Activation, Lambda, Add, MaxPooling2D, Dropout, Cropping2D, ZeroPadding2D
@@ -37,6 +38,7 @@ from keras import optimizers
 
 class fcn8():
     def __init__(self, config):
+
         self.model = None
         self.autoencoder = False
         self.ignore_label = 6
@@ -417,9 +419,9 @@ class fcn8():
             model.compile(
                             optimizer=sgd,
                             loss = self.sparse_loss,
-                            metrics=[self.sparse_accuracy_ignoring_last_label_ohot, self.IoU]
+                            #metrics=[self.sparse_accuracy_ignoring_last_label_ohot, self.IoU]
                         )
-
+        model.run_eagerly = False
         self.model = model
         self.model_prob = model_prob
 
